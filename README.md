@@ -5,8 +5,6 @@ This plugin extends Obsidian’s built-in Moment.js features to provide a custom
 - **Week X** (where X is the numbered Lancaster University week for the 2024/2025 academic year), or
 - **VACATION** if the date does not fall within a defined term week.
 
----
-
 ## Academic Year 2024/2025
 
 The plugin’s logic is currently tailored for the **2024/2025** academic year at Lancaster University. It covers:
@@ -18,8 +16,6 @@ The plugin’s logic is currently tailored for the **2024/2025** academic year a
 Any date outside these date ranges will automatically show "VACATION" in place of "LUW."
 
 > Note: We will update the plugin before the **2025/2026** academic year to maintain accuracy.
-
----
 
 ## Usage
 
@@ -36,15 +32,6 @@ Any date outside these date ranges will automatically show "VACATION" in place o
 3. **Verify the Output**  
    - Create a new daily note or check your daily note for a date within the defined ranges.  
    - Confirm that "LUW" is replaced with the correct "Week X" or "VACATION."
-
----
-
-## Contributing & Future Updates
-
-- If you notice any incorrect dates or need additional features, feel free to open an issue or pull request in the repository.
-- This plugin is designed for 2024/2025 term dates and will be updated before the 2025/2026 academic year.
-
----
 
 ## License
 
