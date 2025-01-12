@@ -17,7 +17,7 @@ The plugin’s logic is currently tailored for the **2024/2025** academic year a
 
 Any date outside these date ranges will automatically show "VACATION" in place of "LUW."
 
-> Note: We will update the plugin before the **2025/2026** academic year to maintain accuracy. In case of changes to term dates or naming conventions, you may need to adjust or update the plugin’s configuration.
+> Note: We will update the plugin before the **2025/2026** academic year to maintain accuracy.
 
 ---
 
