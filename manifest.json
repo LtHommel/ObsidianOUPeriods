@@ -1,9 +1,9 @@
 {
-    "id": "lancaster-university-week-plugin",
-    "name": "Lancaster University Week Plugin",
-    "version": "1.0.0+2425",
+    "id": "lancaster-university-week",
+    "name": "Lancaster University Week Format",
+    "version": "2024.2025",
     "minAppVersion": "1.0.0",
-    "description": "(2024-2025 Academic Year) Extends Obsidian's moment.js to provide a custom 'Lancaster University Week' value or 'VACATION' if not in term. Use 'LUW' in the Daily Note format to use!",
+    "description": "(2024-2025 Academic Year) Extends moment.js to provide a custom 'Lancaster University Week' value or 'VACATION' if not in term. Use 'LUW' in the Daily Note format to use!",
     "author": "IMB11",
     "authorUrl": "https://github.com/IMB11",
     "isDesktopOnly": true
