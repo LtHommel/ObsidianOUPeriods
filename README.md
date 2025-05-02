@@ -1,21 +1,30 @@
-# Lancaster University Week (LUW) Plugin
+# Open Universiteit Period Plugin
 
-This plugin extends Obsidian’s built-in Moment.js features to provide a custom date token called **LUW**. When you set your Daily Note (or other Obsidian date formatting options) to include "LUW," it will be replaced with either:
+This plugin extends Obsidian’s built-in Moment.js features to provide custom date tokens called **OUW** and **OUQ**. When you set your Daily Note (or other Obsidian date formatting options) to include "LUW," it will be replaced with either:
 
-- **Week X** (where X is the numbered Lancaster University week for the 2024/2025 academic year), or
-- **VACATION** if the date does not fall within a defined term week.
+|token | replacement | explanation |
+|-|-|-|
+|OUW | "Week #" | In weeks 1 - 10 of the quarter, where # is the week number |
+|OUW | "Tentamenweek" | In week 11 of the quarter, note that the tentamenweek in the summerperiod is not signaled |
+| OUW | "Week ?" | When the date is outside the supported range (currently the academic year 2024/2025) | 
+| OUQ | "Q#" | Where # is the quarter number |
+|OUQ | "Zomer" | Between Q4 and the next academic year | 
+|OUQ | "Q?" | When the date is outside the supported range (currently the academic year 2024/2025)|
 
 ## Academic Year 2024/2025
 
-The plugin’s logic is currently tailored for the **2024/2025** academic year at Lancaster University. It covers:
+The plugin’s logic is currently tailored for the **2024/2025** academic year at Open Universiteit. It covers:
 
-- Weeks 1 to 10 (between 6 Oct 2023 and 15 Dec 2023)
-- Weeks 11 to 21 (between 12 Jan 2024 and 22 Mar 2024)
-- Weeks 22 to 30 (between 19 Apr 2024 and 28 Jun 2024)
+| Quarter | Start date | End date |
+|-|-|-|
+|1 |  1 Sep 2024 | 17 Nov 2024 |
+|2 | 18 Nov 2024 | 09 Feb 2025 |
+|3 | 10 Feb 2025 | 27 Apr 2025 | 
+| 4 | 28 Apr 2025 | 13 Jul 2025|
+| Zomer | 14 Jul 2025 | 31 Aug 2025 |
 
-Any date outside these date ranges will automatically show "VACATION" in place of "LUW."
 
-> Note: We will update the plugin before the **2025/2026** academic year to maintain accuracy.
+> Note: The plugin will be updated to support the **2025/2026** academic year before the start of the year.
 
 ## Usage
 
@@ -26,12 +35,23 @@ Any date outside these date ranges will automatically show "VACATION" in place o
 
 2. **Set Your Daily Note Date Format**  
    - Go to Obsidian’s "Settings" → "Core Plugins" → "Daily Notes."  
-   - In the **Date Format** field, include `LUW`.  
-   - Example: `LUW MMM Do YYYY`
+   - In the **Date Format** field, include `OUW` or `OUQ`.  
+   - Example: `OUW MMM Do YYYY`
 
 3. **Verify the Output**  
    - Create a new daily note or check your daily note for a date within the defined ranges.  
    - Confirm that "LUW" is replaced with the correct "Week X" or "VACATION."
+
+## Releases
+### 0.1.0
+- Forked from https://github.com/IMB11/ObsidianLUWeeks
+- Adjusted for Open Universiteit
+- Cleaned up code
+
+## Known issues
+- While typing this I'm realizing there is a Christmas reces, and that the week count for Q3 will be off.
+- The summer tentamenweek is not supported.
+
 
 ## License
 

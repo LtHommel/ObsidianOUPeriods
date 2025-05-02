@@ -1,10 +1,10 @@
 {
-    "id": "lancaster-university-week",
-    "name": "Lancaster University Week Format",
-    "version": "2024.2025",
+    "id": "ou-periods",
+    "name": "Open Universiteit Periods",
+    "version": "0.1.0",
     "minAppVersion": "1.0.0",
-    "description": "(2024-2025 Academic Year) Extends moment.js to provide a custom 'Lancaster University Week' value or 'VACATION' if not in term. Use 'LUW' in the Daily Note format to use!",
-    "author": "IMB11",
-    "authorUrl": "https://github.com/IMB11",
+    "description": "Extends moment.js to provide quarter and week values corresponding to the Open Universiteit academic year. Use 'OUQ' or 'OUW' in the Daily Note format to use! \n Currently supports the academic year 2024/2025.",
+    "author": "LtHommel, forked from IMB11",
+    "authorUrl": "https://github.com/LtHommel/ObsidianOUPeriods",
     "isDesktopOnly": true
   }

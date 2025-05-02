@@ -1,71 +1,98 @@
-// main.js (CommonJS version)
-// An example Obsidian plugin that registers a custom "LUW" format token in moment.js.
-// You can then use "LUW" in your Daily Note plugin's date format, for instance: 
-//     [Week] LUW MMM Do YYYY
-// This will display "Week 3 Jan 12th 2025" or "VACATION Jan 12th 2025" if not in a defined week range.
+// An Obsidian plugin that registers custom "OUW" and OUQ format token in moment.js.
+// You can then use "OUW" or "OUQ" in your Daily Note plugin's date format, for instance: 
+//     [2425] OUQ OUW
+// This will display "2425 Q4 Week 1" or "2425 Q3 Tentamenweek" in the 11th week of the quarter.
+// When the current date is not supported by the plugin it will return "Week ?" or "Q?".
 
 const { Plugin } = require("obsidian");
 
-// Define date ranges for Lancaster University terms
-const luWeekBlocks = [
-  { start: "2023-10-06", end: "2023-12-15", startWeek: 1,  endWeek: 10 },
-  { start: "2024-01-12", end: "2024-03-22", startWeek: 11, endWeek: 21 },
-  { start: "2024-04-19", end: "2024-06-28", startWeek: 22, endWeek: 30 },
+// Define date ranges for Open Universiteit terms
+const ouQuarters = [
+  { q: 1, start: "2024-09-01", end: "2024-11-17"},
+  { q: 2, start: "2024-11-18", end: "2025-02-09"},
+  { q: 3, start: "2025-02-10", end: "2024-04-27"},
+  { q: 4, start: "2025-04-28", end: "2025-07-13"},
+  { q: "Zomer", start: "2025-07-14", end: "2025-08-31"} // TODO check einddatum
 ];
 
-// We declare our custom moment function to add TypeScript-like hints inline
-// (not strictly necessary in pure CommonJS; just clarifies usage).
-// When used in Obsidian, this helps define a new "luWeek()" method.
-const enhanceMomentWithLUWeek = () => {
-  // If luWeek() is not already defined, we add it
-  if (!window.moment.prototype.luWeek) {
-    window.moment.prototype.luWeek = function () {
-      const currentDate = this.clone().startOf("day");
-      for (const block of luWeekBlocks) {
-        const startDate = window.moment(block.start, "YYYY-MM-DD").startOf("day");
-        const endDate   = window.moment(block.end,   "YYYY-MM-DD").endOf("day");
+const enhanceMomentWithOUPeriods = () => {
 
-        // Check if the current date is within the block range
-        if (currentDate.isBetween(startDate, endDate, undefined, "[]")) {
-          const daysDiff = currentDate.diff(startDate, "days");
-          const weekOffset = Math.floor(daysDiff / 7);
-          const computedWeek = block.startWeek + weekOffset;
+  const today = window.moment();
+  
+  const currentBlock = function () {
+    for (const block of ouQuarters) {
+      // isBetween matches exclusively by default, the last parameter changes this.
+      if (today.isBetween(block.start, block.end, undefined, "[]")) {
+        return block;
+      } 
+    }
+      // TODO come up with more elegant solution for unsupported dates
+      return {}
+}
 
-          return computedWeek <= block.endWeek 
-            ? `Week ${computedWeek}` 
-            : "VACATION";
-        }
+  // If ouWeek() is not already defined, we add it
+  if (!window.moment.prototype.ouWeek) {
+    window.moment.prototype.ouWeek = function () {
+      const block = currentBlock();
+      if (block.start == undefined) {
+        return "Week ?"
       }
-      return "VACATION";
+      const daysDiff = today.diff(block.start, "days");
+      const week = Math.ceil(daysDiff / 7)
+
+      return week == 11 
+        ? "Tentamenweek"
+        : `Week ${week}`;
+    }
+  };
+
+  // If ouQuarter() is not already defined, we add it
+  if (!window.moment.prototype.ouQuarter) {
+    window.moment.prototype.ouQuarter = function () {
+      const block = currentBlock();
+
+      if (block.q == undefined) {
+        return "Q?"
+      }
+      const q = block.q;
+      
+      return q == "Zomer"
+      ? q
+      : `Q${q}`;
     };
   }
+  
 
-  // Patch moment's format() to replace "LUW" with the output of luWeek()
-  // We do this only once, indicated by a custom flag _luwInjected.
-  if (!window.moment.prototype._luwInjected) {
+  // Patch moment's format() to replace "OUW" and "OUQ" with the outputs of ouWeek() and ouQuarter() respectively
+  // We do this only once, indicated by a custom flag _oupInjected.
+  if (!window.moment.prototype._oupInjected) {
     const originalFormat = window.moment.fn.format;
     window.moment.prototype.format = function (formatStr) {
       if (!formatStr) {
         return originalFormat.call(this, formatStr);
       }
-      if (formatStr.includes("LUW")) {
-        const luValue = this.luWeek(); // "Week 3" or "VACATION"
-        formatStr = formatStr.replace(/LUW/g, "[" + luValue + "]");
+      if (formatStr.includes("OUW")) {
+        const ouWeekValue = this.ouWeek(); // "Week 3" or "Tentamenweek"
+        formatStr = formatStr.replace(/OUW/g, "[" + ouWeekValue + "]");
+      }
+      if (formatStr.includes("OUQ")) {
+        const ouQuarterValue = this.ouQuarter(); // "Q3" or "Zomer"
+        formatStr = formatStr.replace(/OUQ/g, "[" + ouQuarterValue + "]");
       }
       return originalFormat.call(this, formatStr);
     };
-    window.moment.prototype._luwInjected = true;
+    window.moment.prototype._oupInjected = true;
   }
 };
 
-module.exports = class LUWeekFormatTokenPlugin extends Plugin {
+module.exports = class OUPeriodsFormatTokenPlugin extends Plugin {
   async onload() {
-    // Enhance the global moment with our custom LUWeek logic
-    enhanceMomentWithLUWeek();
-    console.log("LUWeekFormatTokenPlugin (CommonJS) loaded!");
+    // Enhance the global moment with our custom OUPeriods logic
+    enhanceMomentWithOUPeriods();
+    console.log("OUPeriodsFormatTokenPlugin loaded");
   }
 
   onunload() {
-    console.log("LUWeekFormatTokenPlugin (CommonJS) unloaded.");
+    console.log("OUPeriodsFormatTokenPlugin unloaded");
   }
 };
