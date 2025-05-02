@@ -15,7 +15,7 @@ This plugin extends Obsidian’s built-in Moment.js features to provide custom d
 
 The plugin’s logic is currently tailored for the **2024/2025** academic year at Open Universiteit. It covers:
 
-| Quarter | Start date | End date |
+| quarter | start date | end date |
 |-|-|-|
 |1 |  1 Sep 2024 | 17 Nov 2024 |
 |2 | 18 Nov 2024 | 09 Feb 2025 |
@@ -24,13 +24,13 @@ The plugin’s logic is currently tailored for the **2024/2025** academic year a
 | Zomer | 14 Jul 2025 | 31 Aug 2025 |
 
 
-> Note: The plugin will be updated to support the **2025/2026** academic year before the start of the year.
+> Note: The plugin will be updated to support the **2025/2026** academic year after the study guide is released.
 
 ## Usage
 
 1. **Install the Plugin**  
    - Copy or clone the plugin files into your Obsidian vault’s plugins folder.  
-   - Alternatively you can download it from the Community Plugin Browser.
+   - ~~Alternatively you can download it from the Community Plugin Browser.~~ -> not at the moment, hopefully later.
    - Ensure that you have enabled it in Obsidian’s "Community Plugins" section.
 
 2. **Set Your Daily Note Date Format**  
@@ -51,7 +51,6 @@ The plugin’s logic is currently tailored for the **2024/2025** academic year a
 ## Known issues
 - While typing this I'm realizing there is a Christmas reces, and that the week count for Q3 will be off.
 - The summer tentamenweek is not supported.
-
 
 ## License
 
