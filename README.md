@@ -1,6 +1,6 @@
 # Open Universiteit Period Plugin
 
-This plugin extends Obsidian’s built-in Moment.js features to provide custom date tokens called **OUW** and **OUQ**. When you set your Daily Note (or other Obsidian date formatting options) to include "LUW," it will be replaced with either:
+This plugin extends Obsidian’s built-in Moment.js features to provide custom date tokens called **OUW** and **OUQ**. When you set your Daily Note (or other Obsidian date formatting options) to include "OUW" or "OUQ" it will be replaced with either:
 
 |token | replacement | explanation |
 |-|-|-|
