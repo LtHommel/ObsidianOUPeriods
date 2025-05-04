@@ -17,12 +17,10 @@ const ouQuarters = [
 
 const enhanceMomentWithOUPeriods = () => {
 
-  const today = window.moment();
-  
-  const currentBlock = function () {
+  const currentBlock = function (date) {
     for (const block of ouQuarters) {
       // isBetween matches exclusively by default, the last parameter changes this.
-      if (today.isBetween(block.start, block.end, undefined, "[]")) {
+      if (date.isBetween(block.start, block.end, undefined, "[]")) {
         return block;
       } 
     }
@@ -32,12 +30,12 @@ const enhanceMomentWithOUPeriods = () => {
 
   // If ouWeek() is not already defined, we add it
   if (!window.moment.prototype.ouWeek) {
-    window.moment.prototype.ouWeek = function () {
-      const block = currentBlock();
+    window.moment.prototype.ouWeek = function (date) {
+      const block = currentBlock(date);
       if (block.start == undefined) {
         return "Week ?"
       }
-      const daysDiff = today.diff(block.start, "days");
+      const daysDiff = date.diff(block.start, "days");
       const week = Math.ceil(daysDiff / 7)
 
       return week == 11 
@@ -48,8 +46,8 @@ const enhanceMomentWithOUPeriods = () => {
 
   // If ouQuarter() is not already defined, we add it
   if (!window.moment.prototype.ouQuarter) {
-    window.moment.prototype.ouQuarter = function () {
-      const block = currentBlock();
+    window.moment.prototype.ouQuarter = function (date) {
+      const block = currentBlock(date);
 
       if (block.q == undefined) {
         return "Q?"
@@ -72,11 +70,11 @@ const enhanceMomentWithOUPeriods = () => {
         return originalFormat.call(this, formatStr);
       }
       if (formatStr.includes("OUW")) {
-        const ouWeekValue = this.ouWeek(); // "Week 3" or "Tentamenweek"
+        const ouWeekValue = this.ouWeek(this); // "Week 3" or "Tentamenweek"
         formatStr = formatStr.replace(/OUW/g, "[" + ouWeekValue + "]");
       }
       if (formatStr.includes("OUQ")) {
-        const ouQuarterValue = this.ouQuarter(); // "Q3" or "Zomer"
+        const ouQuarterValue = this.ouQuarter(this); // "Q3" or "Zomer"
         formatStr = formatStr.replace(/OUQ/g, "[" + ouQuarterValue + "]");
       }
       return originalFormat.call(this, formatStr);
