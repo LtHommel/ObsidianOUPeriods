@@ -49,6 +49,7 @@ The plugin’s logic is currently tailored for the **2024/2025** academic year a
 - Cleaned up code
 
 ## Known issues
+- The plugin always returns the current quarter and week, not that of the date that is formatted
 - While typing this I'm realizing there is a Christmas reces, and that the week count for Q3 will be off.
 - The summer tentamenweek is not supported.
 
