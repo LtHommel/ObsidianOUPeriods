@@ -15,7 +15,29 @@ const ouQuarters = [
   { q: "Zomer", start: "2025-07-14", end: "2025-08-31"} // TODO check einddatum
 ];
 
+const isoWeekBased = [
+  {q: 1, start: 36, end: 46},
+  {q: 2, start: 47, end: 6},
+  {q: 3, start: 7, end: 17},
+  {q: 4, start: 18, end: 28},
+  {q: "zomer", start: 29, end: 35}
+]
+
 const enhanceMomentWithOUPeriods = () => {
+
+  const isoBasedBlock = function (date) {
+    isoWeekNumber = date.isoWeek();
+
+    if (isoWeekNumber >= 47 || isoWeekNumber <= 6) {
+      return isoWeekBased[1];
+    }
+
+    for (const block of isoWeekBased) {
+      if (isoWeekNumber >= block.start && isoWeekNumber <=block.end) {
+        return block;
+      }
+    }
+  }
 
   const currentBlock = function (date) {
     for (const block of ouQuarters) {
@@ -31,12 +53,15 @@ const enhanceMomentWithOUPeriods = () => {
   // If ouWeek() is not already defined, we add it
   if (!window.moment.prototype.ouWeek) {
     window.moment.prototype.ouWeek = function (date) {
+      console.log(date);
       const block = currentBlock(date);
       if (block.start == undefined) {
         return "Week ?"
       }
+      console.log(block.start);
       const daysDiff = date.diff(block.start, "days");
-      const week = Math.ceil(daysDiff / 7)
+      console.log("daysDiff ", daysDiff);
+      const week = (Math.ceil(daysDiff / 7)) + 1;
 
       return week == 11 
         ? "Tentamenweek"
@@ -47,11 +72,8 @@ const enhanceMomentWithOUPeriods = () => {
   // If ouQuarter() is not already defined, we add it
   if (!window.moment.prototype.ouQuarter) {
     window.moment.prototype.ouQuarter = function (date) {
-      const block = currentBlock(date);
+      const block = isoBasedBlock(date);
 
-      if (block.q == undefined) {
-        return "Q?"
-      }
       const q = block.q;
       
       return q == "Zomer"
