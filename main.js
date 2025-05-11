@@ -16,16 +16,15 @@ const ouBlocks = [
 
 const enhanceMomentWithOUPeriods = () => {
 
-  const isoBasedBlock = function (date) {
-    isoWeekNumber = date.isoWeek();
+  const getOUBlock = function (isoWeekNumber) {
 
     if (isoWeekNumber >= 47 || isoWeekNumber <= 6) {
-      return [ouBlocks[1], isoWeekNumber];
+      return ouBlocks[1];
     }
 
     for (const block of ouBlocks) {
       if (isoWeekNumber >= block.start && isoWeekNumber <=block.end) {
-        return [block, isoWeekNumber];
+        return block;
       }
     }
   }
@@ -33,10 +32,9 @@ const enhanceMomentWithOUPeriods = () => {
   // If ouWeek() is not already defined, we add it
   if (!window.moment.prototype.ouWeek) {
     window.moment.prototype.ouWeek = function (date) {
-      const henk = isoBasedBlock(date);
-
-      const block = henk[0];
-      const isoWeekNumber = henk[1];
+      
+      const isoWeekNumber = date.isoWeek();
+      const block = getOUBlock(isoWeekNumber);
       
         if (isoWeekNumber == 1 || isoWeekNumber == 53) {
           return "Kerstreces";
@@ -54,7 +52,7 @@ const enhanceMomentWithOUPeriods = () => {
   // If ouQuarter() is not already defined, we add it
   if (!window.moment.prototype.ouQuarter) {
     window.moment.prototype.ouQuarter = function (date) {
-      const block = isoBasedBlock(date)[0];
+      const block = getOUBlock(date.isoWeek());
 
       const q = block.q;
       
