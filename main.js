@@ -18,15 +18,13 @@ const enhanceMomentWithOUPeriods = () => {
 
   const getOUBlock = function (isoWeekNumber) {
 
-    if (isoWeekNumber >= 47 || isoWeekNumber <= 6) {
-      return ouBlocks[1];
-    }
-
     for (const block of ouBlocks) {
       if (isoWeekNumber >= block.start && isoWeekNumber <=block.end) {
         return block;
       }
     }
+    // It must be q2, the weird one.
+    return ouBlocks[1];
   }
 
   // If ouWeek() is not already defined, we add it
