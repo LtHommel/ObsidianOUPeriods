@@ -6,18 +6,9 @@
 
 const { Plugin } = require("obsidian");
 
-// Define date ranges for Open Universiteit terms
-const ouQuarters = [
-  { q: 1, start: "2024-09-01", end: "2024-11-17"},
-  { q: 2, start: "2024-11-18", end: "2025-02-09"},
-  { q: 3, start: "2025-02-10", end: "2024-04-27"},
-  { q: 4, start: "2025-04-28", end: "2025-07-13"},
-  { q: "Zomer", start: "2025-07-14", end: "2025-08-31"} // TODO check einddatum
-];
-
-const isoWeekBased = [
+const ouBlocks = [
   {q: 1, start: 36, end: 46},
-  {q: 2, start: 47, end: 6},
+  {q: 2, start: 47, end: 6}, // weken 53 en 1 zijn kerstreces
   {q: 3, start: 7, end: 17},
   {q: 4, start: 18, end: 28},
   {q: "zomer", start: 29, end: 35}
@@ -29,50 +20,41 @@ const enhanceMomentWithOUPeriods = () => {
     isoWeekNumber = date.isoWeek();
 
     if (isoWeekNumber >= 47 || isoWeekNumber <= 6) {
-      return isoWeekBased[1];
+      return [ouBlocks[1], isoWeekNumber];
     }
 
-    for (const block of isoWeekBased) {
+    for (const block of ouBlocks) {
       if (isoWeekNumber >= block.start && isoWeekNumber <=block.end) {
-        return block;
+        return [block, isoWeekNumber];
       }
     }
   }
 
-  const currentBlock = function (date) {
-    for (const block of ouQuarters) {
-      // isBetween matches exclusively by default, the last parameter changes this.
-      if (date.isBetween(block.start, block.end, undefined, "[]")) {
-        return block;
-      } 
-    }
-      // TODO come up with more elegant solution for unsupported dates
-      return {}
-}
-
   // If ouWeek() is not already defined, we add it
   if (!window.moment.prototype.ouWeek) {
     window.moment.prototype.ouWeek = function (date) {
-      console.log(date);
-      const block = currentBlock(date);
-      if (block.start == undefined) {
-        return "Week ?"
-      }
-      console.log(block.start);
-      const daysDiff = date.diff(block.start, "days");
-      console.log("daysDiff ", daysDiff);
-      const week = (Math.ceil(daysDiff / 7)) + 1;
+      const henk = isoBasedBlock(date);
 
-      return week == 11 
-        ? "Tentamenweek"
-        : `Week ${week}`;
+      const block = henk[0];
+      const isoWeekNumber = henk[1];
+      
+        if (isoWeekNumber == 1 || isoWeekNumber == 53) {
+          return "Kerstreces";
+        }
+        if (isoWeekNumber < ouBlocks[1].end) {
+          return `Week ${isoWeekNumber + 4}`;
+        }
+        if (isoWeekNumber == block.end) {
+          return "Tentamenweek";
+        }
+        return `Week ${isoWeekNumber - block.start + 1}`;
     }
   };
 
   // If ouQuarter() is not already defined, we add it
   if (!window.moment.prototype.ouQuarter) {
     window.moment.prototype.ouQuarter = function (date) {
-      const block = isoBasedBlock(date);
+      const block = isoBasedBlock(date)[0];
 
       const q = block.q;
       
