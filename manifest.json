@@ -1,7 +1,7 @@
 {
     "id": "ou-periods",
     "name": "Open Universiteit Periods",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "minAppVersion": "1.0.0",
     "description": "Extends moment.js to provide quarter and week values corresponding to the Open Universiteit academic year. Use 'OUQ' or 'OUW' in the Daily Note format to use! \n Currently supports the academic year 2024/2025.",
     "author": "LtHommel, forked from IMB11",

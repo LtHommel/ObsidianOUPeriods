@@ -2,30 +2,26 @@
 
 This plugin extends Obsidian’s built-in Moment.js features to provide custom date tokens called **OUW** and **OUQ**. When you set your Daily Note (or other Obsidian date formatting options) to include "OUW" or "OUQ" it will be replaced with either:
 
-|token | replacement | explanation |
-|-|-|-|
-|OUW | "Week #" | In weeks 1 - 10 of the quarter, where # is the week number |
-|OUW | "Tentamenweek" | In week 11 of the quarter, note that the tentamenweek in the summerperiod is not signaled |
-| OUW | "Week ?" | When the date is outside the supported range (currently the academic year 2024/2025) | 
-| OUQ | "Q#" | Where # is the quarter number |
-|OUQ | "Zomer" | Between Q4 and the next academic year | 
-|OUQ | "Q?" | When the date is outside the supported range (currently the academic year 2024/2025)|
+| Token | Replacement    | Explanation                                                 |
+|-------|----------------|-------------------------------------------------------------|
+| OUW   | "Week #"       | For weeks 1 - 10 of the quarter, where # is the week number |
+| OUW   | "Tentamenweek" | For the last week of the quarter or the last week of summer |
+| OUW   | "Kerstreces"   | For the Christmas break                                     |
+| OUQ   | "Q#"           | Where # is the quarter number                               |
+| OUQ   | "Zomer"        | Between Q4 and the next academic year                       | 
 
-## Academic Year 2024/2025
+## OU Academic Year
+The week numbers in below table are ISO8601 weeknumbers. 
 
-The plugin’s logic is currently tailored for the **2024/2025** academic year at Open Universiteit. It covers:
+| Quarter | First week | Last week |
+|---------|------------|-----------|
+| 1       | 36         | 46        |
+| 2       | 47         |  6        |
+| 3       |  7         | 17        | 
+| 4       | 18         | 28        |
+| Summer  | 29         | 35        |
 
-| quarter | start date | end date |
-|-|-|-|
-|1 |  1 Sep 2024 | 17 Nov 2024 |
-|2 | 18 Nov 2024 | 09 Feb 2025 |
-|3 | 10 Feb 2025 | 27 Apr 2025 | 
-| 4 | 28 Apr 2025 | 13 Jul 2025|
-| Zomer | 14 Jul 2025 | 31 Aug 2025 |
-
-
-> Note: The plugin will be updated to support the **2025/2026** academic year after the study guide is released.
-
+> The OU academic year has followed above pattern for several years now, but this is not an official schedule. After the study guides for the next academic year are released, I will ensure they continue to do so, or update the plugin accordingly.
 ## Usage
 
 1. **Install the Plugin**  
@@ -43,14 +39,18 @@ The plugin’s logic is currently tailored for the **2024/2025** academic year a
    - Confirm that "LUW" is replaced with the correct "Week X" or "VACATION."
 
 ## Releases
+### 0.2.0
+- Summer "tentamenweek" is now supported
+- Q2 "kerstreces" is now supported
+- Fixed week count in Q2 post Christmas break
+
 ### 0.1.0
 - Forked from https://github.com/IMB11/ObsidianLUWeeks
 - Adjusted for Open Universiteit
 - Cleaned up code
 
 ## Known issues
-- While typing this I'm realizing there is a Christmas reces, and that the week count for Q3 will be off.
-- The summer tentamenweek is not supported.
+- In years with a week 53 there are two weeks of Christmas recess. These two weeks return the same string which will lead to duplicate filenames when used with e.g. periodic notes.
 
 ## License
 
