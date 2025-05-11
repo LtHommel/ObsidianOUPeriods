@@ -34,16 +34,15 @@ const enhanceMomentWithOUPeriods = () => {
       const isoWeekNumber = date.isoWeek();
       const block = getOUBlock(isoWeekNumber);
       
-        if (isoWeekNumber == 1 || isoWeekNumber == 53) {
-          return "Kerstreces";
+        if ([53,1].includes(isoWeekNumber)) {
+            return "Kerstreces";
+        } else if (isoWeekNumber < ouBlocks[1].end) {
+            return `Week ${isoWeekNumber + 4}`;
+        } else if (isoWeekNumber == block.end) {
+            return "Tentamenweek";
+        } else {
+            return `Week ${isoWeekNumber - block.start + 1}`;
         }
-        if (isoWeekNumber < ouBlocks[1].end) {
-          return `Week ${isoWeekNumber + 4}`;
-        }
-        if (isoWeekNumber == block.end) {
-          return "Tentamenweek";
-        }
-        return `Week ${isoWeekNumber - block.start + 1}`;
     }
   };
 
