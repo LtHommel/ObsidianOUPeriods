@@ -6,12 +6,14 @@
 
 const { Plugin } = require("obsidian");
 
+const ZOMER = "Zomer";
+
 const ouBlocks = [
   {q: 1, start: 36, end: 46},
   {q: 2, start: 47, end: 6}, // weken 53 en 1 zijn kerstreces
   {q: 3, start: 7, end: 17},
   {q: 4, start: 18, end: 28},
-  {q: "zomer", start: 29, end: 35}
+  {q: ZOMER, start: 29, end: 35}
 ]
 
 const enhanceMomentWithOUPeriods = () => {
@@ -53,7 +55,7 @@ const enhanceMomentWithOUPeriods = () => {
 
       const q = block.q;
       
-      return q == "Zomer"
+      return q == ZOMER
       ? q
       : `Q${q}`;
     };
