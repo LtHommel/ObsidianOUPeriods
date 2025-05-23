@@ -37,7 +37,7 @@ const enhanceMomentWithOUPeriods = () => {
         if ([53,1].includes(isoWeekNumber)) {
             return "Kerstreces";
         } else if (isoWeekNumber < ouBlocks[1].end) {
-            return `Week ${isoWeekNumber + 4}`;
+            return `Week ${isoWeekNumber + 5}`;
         } else if (isoWeekNumber == block.end) {
             return "Tentamenweek";
         } else {
