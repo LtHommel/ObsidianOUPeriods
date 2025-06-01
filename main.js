@@ -4,6 +4,8 @@
 // This will display "2425 Q4 Week 1" or "2425 Q3 Tentamenweek" in the 11th week of the quarter.
 
 const { Plugin } = require("obsidian");
+// save this puppy for unloading
+const originalFormat =  window.moment.fn.format;
 
 const ZOMER = "Zomer";
 
@@ -64,7 +66,7 @@ const enhanceMomentWithOUPeriods = () => {
   // Patch moment's format() to replace "OUW" and "OUQ" with the outputs of ouWeek() and ouQuarter() respectively
   // We do this only once, indicated by a custom flag _oupInjected.
   if (!window.moment.prototype._oupInjected) {
-    const originalFormat = window.moment.fn.format;
+
     window.moment.prototype.format = function (formatStr) {
       if (!formatStr) {
         return originalFormat.call(this, formatStr);
@@ -91,6 +93,13 @@ module.exports = class OUPeriodsFormatTokenPlugin extends Plugin {
   }
 
   onunload() {
+    if (window.moment.prototype._oupInjected) {
+      window.moment.prototype.format = originalFormat;
+      
+      delete window.moment.prototype._oupInjected;
+      delete window.moment.prototype.ouWeek;
+      delete window.moment.prototype.ouQuarter;
+    }
     console.log("OUPeriodsFormatTokenPlugin unloaded");
   }
 };
