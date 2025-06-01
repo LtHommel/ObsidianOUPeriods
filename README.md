@@ -32,13 +32,16 @@ The week numbers in below table are ISO8601 weeknumbers.
 2. **Set Your Daily Note Date Format**  
    - Go to Obsidian’s "Settings" → "Core Plugins" → "Daily Notes."  
    - In the **Date Format** field, include `OUW` or `OUQ`.  
-   - Example: `OUW MMM Do YYYY`
+   - Example: `OUQ - OUW`
 
 3. **Verify the Output**  
    - Create a new daily note or check your daily note for a date within the defined ranges.  
-   - Confirm that "LUW" is replaced with the correct "Week X" or "VACATION."
+   - Confirm that "OUW" is replaced with the correct "Week X".
 
 ## Releases
+### 0.3.0
+- Plugin cleans up after itself on unload
+
 ### 0.2.0
 - Summer "tentamenweek" is now supported
 - Q2 "kerstreces" is now supported
