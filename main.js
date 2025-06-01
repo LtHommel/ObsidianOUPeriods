@@ -2,7 +2,6 @@
 // You can then use "OUW" or "OUQ" in your Daily Note plugin's date format, for instance: 
 //     [2425] OUQ OUW
 // This will display "2425 Q4 Week 1" or "2425 Q3 Tentamenweek" in the 11th week of the quarter.
-// When the current date is not supported by the plugin it will return "Week ?" or "Q?".
 
 const { Plugin } = require("obsidian");
 
