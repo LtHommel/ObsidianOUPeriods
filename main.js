@@ -7,7 +7,7 @@ const { Plugin } = require("obsidian");
 
 const ZOMER = "Zomer";
 
-const ouBlocks = [
+const ouPeriods = [
   {q: 1, start: 36, end: 46},
   {q: 2, start: 47, end: 6}, // weken 53 en 1 zijn kerstreces
   {q: 3, start: 7, end: 17},
@@ -17,15 +17,15 @@ const ouBlocks = [
 
 const enhanceMomentWithOUPeriods = () => {
 
-  const getOUBlock = function (isoWeekNumber) {
+  const getOUPeriod = function (isoWeekNumber) {
 
-    for (const block of ouBlocks) {
-      if (isoWeekNumber >= block.start && isoWeekNumber <=block.end) {
-        return block;
+    for (const period of ouPeriods) {
+      if (isoWeekNumber >= period.start && isoWeekNumber <=period.end) {
+        return period;
       }
     }
     // It must be q2, the weird one.
-    return ouBlocks[1];
+    return ouPeriods[1];
   }
 
   // If ouWeek() is not already defined, we add it
@@ -33,16 +33,16 @@ const enhanceMomentWithOUPeriods = () => {
     window.moment.prototype.ouWeek = function (date) {
       
       const isoWeekNumber = date.isoWeek();
-      const block = getOUBlock(isoWeekNumber);
+      const ouPeriod = getOUPeriod(isoWeekNumber);
       
         if ([53,1].includes(isoWeekNumber)) {
             return "Kerstreces";
-        } else if (isoWeekNumber < ouBlocks[1].end) {
+        } else if (isoWeekNumber < ouPeriods[1].end) {
             return `Week ${isoWeekNumber + 5}`;
-        } else if (isoWeekNumber == block.end) {
+        } else if (isoWeekNumber == ouPeriod.end) {
             return "Tentamenweek";
         } else {
-            return `Week ${isoWeekNumber - block.start + 1}`;
+            return `Week ${isoWeekNumber - ouPeriod.start + 1}`;
         }
     }
   };
@@ -50,9 +50,9 @@ const enhanceMomentWithOUPeriods = () => {
   // If ouQuarter() is not already defined, we add it
   if (!window.moment.prototype.ouQuarter) {
     window.moment.prototype.ouQuarter = function (date) {
-      const block = getOUBlock(date.isoWeek());
+      const ouPeriod = getOUPeriod(date.isoWeek());
 
-      const q = block.q;
+      const q = ouPeriod.q;
       
       return q == ZOMER
       ? q
