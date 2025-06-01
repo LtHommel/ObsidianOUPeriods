@@ -10,10 +10,10 @@ const originalFormat =  window.moment.fn.format;
 const ZOMER = "Zomer";
 
 const ouPeriods = [
-  {q: 1, start: 36, end: 46},
-  {q: 2, start: 47, end: 6}, // weken 53 en 1 zijn kerstreces
-  {q: 3, start: 7, end: 17},
-  {q: 4, start: 18, end: 28},
+  {q: "Q1", start: 36, end: 46},
+  {q: "Q2", start: 47, end: 6}, // weken 53 en 1 zijn kerstreces
+  {q: "Q3", start: 7, end: 17},
+  {q: "Q4", start: 18, end: 28},
   {q: ZOMER, start: 29, end: 35}
 ]
 
@@ -54,11 +54,7 @@ const enhanceMomentWithOUPeriods = () => {
     window.moment.prototype.ouQuarter = function (date) {
       const ouPeriod = getOUPeriod(date.isoWeek());
 
-      const q = ouPeriod.q;
-      
-      return q == ZOMER
-      ? q
-      : `Q${q}`;
+      return ouPeriod.q;
     };
   }
   
