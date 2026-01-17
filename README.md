@@ -30,7 +30,8 @@ The week numbers in below table are ISO8601 weeknumbers.
 ### Installation
 1. There are several ways to install the plugin, pick your favorite: 
    - Copy or clone the plugin files into your Obsidian vault’s plugins folder.
-   - ~~Alternatively you can download it from the Community Plugin Browser.~~ -> not at the moment, hopefully soon.
+   - Install through [BRAT](https://tfthacker.com/brat-quick-guide).
+   - ~~Download it from the Community Plugin Browser.~~ -> not at the moment, hopefully soon.
 2. Ensure that you have enabled it in Obsidian’s "Community Plugins" section.
 
 ### Use with Daily Notes/Periodic Notes/Templater and others
