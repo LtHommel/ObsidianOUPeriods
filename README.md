@@ -1,7 +1,7 @@
 # Thank you
 This plugin started out as a fork of https://github.com/IMB11/ObsidianLUWeeks. It has digressed enough to make it a standalone project, but not without proper thanks to IMB11 for the idea and a basis to work off!
 
-# Open Universiteit Period Plugin
+# Open Universiteit Date Format Plugin
 This plugin extends Obsidian’s built-in Moment.js features to provide the custom date tokens **OUW**, **OUQ**, and **OUY**. When you set your Daily Note (or other Obsidian date formatting options) to include `OUW`, `OUQ`, or `OUY` it will be replaced with either:
 
 | Token | Replacement  | Explanation                                                      |
@@ -61,5 +61,4 @@ You can now use the tokens in any place where you can use moment.js formatting. 
 - In years with a week 53 there are two weeks of Christmas recess. These two weeks return the same string which will lead to duplicate filenames when used with e.g. periodic notes.
 
 ## License
-
 This plugin is provided under the CC-0 License. See [LICENSE](./LICENSE) for more details.

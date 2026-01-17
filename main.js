@@ -17,7 +17,7 @@ const ouPeriods = [
   { q: ZOMER, start: 29, end: 35 }
 ]
 
-const enhanceMomentWithOUPeriods = () => {
+const enhanceMomentWithOuDateFormat = () => {
 
   const getOUPeriod = function (isoWeekNumber) {
 
@@ -41,7 +41,7 @@ const enhanceMomentWithOUPeriods = () => {
         return "Kerstreces";
       } else if (isoWeekNumber < ouPeriods[1].end) {
         return `${isoWeekNumber + 5}`;
-      } else if (isoWeekNumber == ouPeriod.end & !(isoWeekNumber == 35)) {
+      } else if (isoWeekNumber === ouPeriod.end && !(isoWeekNumber === 35)) {
         return "T";
       } else {
         return `${isoWeekNumber - ouPeriod.start + 1}`;
@@ -99,11 +99,11 @@ const enhanceMomentWithOUPeriods = () => {
   }
 };
 
-module.exports = class OUPeriodsFormatTokenPlugin extends Plugin {
+module.exports = class OuDateFormatPlugin extends Plugin {
   async onload() {
-    // Enhance the global moment with our custom OUPeriods logic
-    enhanceMomentWithOUPeriods();
-    console.log("OUPeriodsFormatTokenPlugin loaded");
+    // Enhance the global moment with our custom OuDateFormat logic
+    enhanceMomentWithOuDateFormat();
+    console.log("OuDateFormatPlugin loaded");
   }
 
   onunload() {
@@ -115,6 +115,6 @@ module.exports = class OUPeriodsFormatTokenPlugin extends Plugin {
       delete window.moment.prototype.ouQuarter;
       delete window.moment.prototype.ouYear;
     }
-    console.log("OUPeriodsFormatTokenPlugin unloaded");
+    console.log("OuDateFormatPlugin unloaded");
   }
 };
