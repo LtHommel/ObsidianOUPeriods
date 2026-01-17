@@ -3,7 +3,7 @@
     "name": "Open Universiteit Date Format",
     "version": "0.4.0",
     "minAppVersion": "1.0.0",
-    "description": "Extends moment.js to provide quarter and week values corresponding to the Open Universiteit academic year. Use 'OUY', 'OUQ', or 'OUW' in the Daily Note format to use!",
+    "description": "Extends Moment.js to format dates as year, quarter and week values corresponding to the Open Universiteit academic year.",
     "author": "LtHommel",
     "authorUrl": "https://github.com/LtHommel/obsidian-ou-date-format",
     "isDesktopOnly": true
